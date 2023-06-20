@@ -21,12 +21,17 @@ const userSchema = new mongoose.Schema({
         required: true,
         minlength: 5,
         maxlength: 1024
-    }
+    },
+    isAdmin: Boolean
+    //im  complex app use
+    //roles: [],
+    //and in even more complex app use
+    //operations: []
 });
 
 //Information Expert Principle
 userSchema.methods.generateAuthToken = () => {
-    const token = jwt.sign({ _id: this._id}, 'jwtPrivateKey');
+    const token = jwt.sign({ _id: this._id, isAdmin:this.isAdmin }, 'jwtPrivateKey');
     return token;
 }
 
